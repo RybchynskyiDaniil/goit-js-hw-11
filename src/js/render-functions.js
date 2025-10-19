@@ -1,11 +1,13 @@
-
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
 import { refs } from "./refs";
 let markup = "";
+let galleryLightBox;
 export function createGallery(images) {
     for (const image of images) {
         markup +=`<li class="gallery-item">
-            <a class="gallery-link" href=${image.largeImageURL}>
-                <img class="gallery-image" src=${image.webformatURL} alt=${image.tags}>
+            <a class="gallery-link" href="${image.largeImageURL}">
+                <img class="gallery-image" src="${image.webformatURL}" alt="${image.tags}">
             </a>
             <ul class="image-stats-list">
                 <li class="image-stats-item">
@@ -27,15 +29,29 @@ export function createGallery(images) {
             </ul>
         </li>`  
     }
-    refs.galleryEl.insertAdjacentHTML("beforeend",markup)
+    refs.galleryEl.insertAdjacentHTML("beforeend", markup)
     
+    if (!galleryLightBox) {
+    galleryLightBox = new SimpleLightbox('.gallery a', {
+      animationSpeed: 300,
+      fadeSpeed: 250,
+      captions: true,
+      captionDelay: 250,
+      captionType: 'attr',
+      captionsData: 'alt',
+      captionPosition: 'bottom',
+      showCounter: true,
+      scrollZoom: true,
+    });
+  } else {
+    galleryLightBox.refresh();
+  }
 }
-// Ця функція повинна приймати масив images, створювати HTML-розмітку для галереї, додавати її в контейнер галереї та викликати метод екземпляра SimpleLightbox refresh(). Нічого не повертає.
+
 export function clearGallery() {
  markup = "" 
  refs.galleryEl.innerHTML=""   
 } 
-// Ця функція нічого не приймає та повинна очищати вміст контейнера галереї.Нічого не повертає.
 
 export function showLoader(){
     if (refs.loaderEl.classList.contains("visually-hidden")) {
@@ -43,11 +59,9 @@ export function showLoader(){
     }
     
 }
-// } Ця функція нічого не приймає, повинна додавати клас для відображення лоадера. Нічого не повертає.
 
 export function hideLoader() {
 if (!refs.loaderEl.classList.contains("visually-hidden")) {
         refs.loaderEl.classList.add("visually-hidden")
     }
 }
-//  Ця функція нічого не приймає, повинна прибирати клас для відображення лоадера.Нічого не повертає.
