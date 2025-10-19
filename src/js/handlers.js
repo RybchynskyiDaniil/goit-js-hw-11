@@ -29,8 +29,6 @@ showLoader()
         position: 'topRight',
         backgroundColor: '#ef4040',
         messageColor: '#ffffff',
-        // iconUrl: iconError,
-        iconColor: '#ffffff',
       });
     })
         .finally(() => {
