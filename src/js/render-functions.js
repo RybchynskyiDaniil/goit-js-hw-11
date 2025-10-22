@@ -1,9 +1,9 @@
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import { refs } from "./refs";
-let markup = "";
 let galleryLightBox;
 export function createGallery(images) {
+    let markup = "";
     for (const image of images) {
         markup +=`<li class="gallery-item">
             <a class="gallery-link" href="${image.largeImageURL}">
@@ -48,8 +48,7 @@ export function createGallery(images) {
   }
 }
 
-export function clearGallery() {
- markup = "" 
+export function clearGallery() { 
  refs.galleryEl.innerHTML=""   
 } 
 
